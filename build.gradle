@@ -335,11 +335,8 @@ subprojects {
                 beforeDeployment { deployment -> signing.signPom(deployment) }
 
                 repository(
-                    url: (isReleaseVersion ?
-                        "https://oss.sonatype.org/service/local/staging/deploy/maven2" :
-                        "https://oss.sonatype.org/content/repositories/snapshots")) {
-                    // User and Password are taken from ~/.gradle/gradle.properties
-                    authentication(userName: project.sonatypeUsername, password: project.sonatypePassword)
+                    url: ("https://maven.pkg.github.com/danielcarlberg/quasar")) {
+                    authentication(userName: System.getenv("GITHUB_ACTOR"), password: System.getenv("GITHUB_TOKEN"))
                 }
                 pom.project {
                     name project.name
